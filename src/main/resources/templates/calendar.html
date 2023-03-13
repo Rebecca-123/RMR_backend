@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/base}" lang="en">
+
+<head>
+  <title>2019 FRQ 1</title>
+</head>
+
+<body>
+<th:block layout:fragment="body" th:remove="tag">
+  <!-- Start of body content specific to page -->
+  <div class="px-4 py-5 my-5">
+    <h3 class="display-5 fw-bold">Leap Year?</h3>
+
+    <form action="/calendar" method="GET" id="yearForm">
+      <div>
+        <label for="yearField">Which year?</label>
+        <input name="year" id="yearField">
+        <button>Check!</button>
+        <p th:text="'The year ' + ${year} + ' is a leap year: ' + ${isLeapYear}"></p>
+        <p th:text="'Day of week of ' +  'January 1st, ' + ${year} + ': ' + ${dayOfWeek}"></p>
+      </div>
+    </form>
+  </div>
+  <!-- End of body content specific to page -->
+
+  <!-- <div class="px-4 py-5 my-5">
+    <h3 class="display-5 fw-bold">How many leap years occurred?</h3>
+
+    <form action="/leapYearCount" method="GET" id="yearForm">
+      <div>
+        <label for="year1Field">Year 1?</label>
+        <input name="year1" id="year1Field">
+        <label for="year2Field">Year 2?</label>
+        <input name="year2" id="year2Field">
+        <button>Check!</button>
+        <p th:text="'There were ' + ${leapYearCount} + ' leap years between ' + ${year1} + ' and ' + ${year2}"></p>
+      </div>
+    </form>
+  </div> -->
+</th:block>
+</body>
+
+</html>

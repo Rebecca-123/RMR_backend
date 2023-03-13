@@ -1,0 +1,17 @@
+version: "3"
+services:
+  web:
+    image: spring_backend_8192
+    build: .
+    ports:
+      - "8192:8192"
+    volumes:
+      - persistent_volume:/app/volumes
+    restart: unless-stopped
+volumes:
+  persistent_volume:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/ubuntu/tri2_t2_8192/volumes
