@@ -52,12 +52,12 @@ public class ReviewViewController {
     }
 
     @PostMapping("/database/addreview/{id}")
-    public ResponseEntity<Object> reviewsAdd(@PathVariable("id") Long clubId, @RequestBody String text) {
+    public ResponseEntity<Object> reviewsAdd(@PathVariable("id") Long clubId, @RequestBody String text, @RequestBody String ticket, @RequestBody String comments) {
 
         Optional<Club> optional = clubRepo.findById(clubId);
         if (optional.isPresent()) { // Good ID
             Club club = optional.get(); // value from findByID
-            Review review = new Review(text, club);
+            Review review = new Review(text, club, ticket, comments);
             reviewRepository.save(review);
             return new ResponseEntity<>("New review is created successfully for Club:" + clubId, HttpStatus.CREATED);
         }
@@ -65,34 +65,36 @@ public class ReviewViewController {
         // Bad ID
         return new ResponseEntity<>("Club not found in club list - Club:" + clubId, HttpStatus.CREATED);
     }
+// MUST ADD UPDATE AND DELETE FUNCTIONS FOR ALL
 
-    @PostMapping("/database/ticket/{id}")
-    public ResponseEntity<Object> ticketReview(@PathVariable("id") Long id, @RequestBody String text) {
 
-        Optional<Review> optional = reviewRepository.findById(id);
-        if (optional.isPresent()) { // Good ID
-            Review review = optional.get(); // value from findByID 
-            review.setTicket(review.getTicket() + 1); // increment value
-            reviewRepository.save(review); // save entity
-            return new ResponseEntity<>("Review " + id + " ticket made successfully", HttpStatus.OK); // OK HTTP response: status code, headers, and body
-        }
-        // Bad ID
-        return new ResponseEntity<>("Review not found", HttpStatus.BAD_REQUEST); // Failed HTTP response: status code, headers, and body
-    }
+    // @PostMapping("/database/addticket/{id}")
+    // public ResponseEntity<Object> ticketReview(@PathVariable("id") Long id, @RequestBody String text, @RequestBody String ticket, @RequestBody String comments) {
 
-    @PostMapping("/database/comment/{id}")
-    public ResponseEntity<Object> commentReview(@PathVariable("id") Long id,  @RequestBody String text) {
+    //     Optional<Review> optional = reviewRepository.findById(id);
+    //     if (optional.isPresent()) { // Good ID
+    //         Review review = optional.get(); // value from findByID 
+    //         review.setTicket(review.getTicket() + 1); // increment value
+    //         reviewRepository.save(review); // save entity
+    //         return new ResponseEntity<>("Review " + id + " ticket made successfully", HttpStatus.OK); // OK HTTP response: status code, headers, and body
+    //     }
+    //     // Bad ID
+    //     return new ResponseEntity<>("Review not found", HttpStatus.BAD_REQUEST); // Failed HTTP response: status code, headers, and body
+    // }
 
-        Optional<Review> optional = reviewRepository.findById(id);
-        if (optional.isPresent()) { // Good ID
-            Review review = optional.get(); // value from findByID
-            review.setComments(review.getComments() + 1); // increment value
-            reviewRepository.save(review); // save entity
-            return new ResponseEntity<>("Review " + id + " commented successfully", HttpStatus.OK); // OK HTTP response: status code, headers, and body
-        }
-        // Bad ID
-        return new ResponseEntity<>("Review not found", HttpStatus.BAD_REQUEST); // Failed HTTP response: status code, headers, and body
+    // @PostMapping("/database/comment/{id}")
+    // public ResponseEntity<Object> commentReview(@PathVariable("id") Long id,  @RequestBody String text, @RequestBody String ticket, @RequestBody String comments) {
 
-    }
+    //     Optional<Review> optional = reviewRepository.findById(id);
+    //     if (optional.isPresent()) { // Good ID
+    //         Review review = optional.get(); // value from findByID
+    //         review.setComments(review.getComments() + 1); // increment value
+    //         reviewRepository.save(review); // save entity
+    //         return new ResponseEntity<>("Review " + id + " commented successfully", HttpStatus.OK); // OK HTTP response: status code, headers, and body
+    //     }
+    //     // Bad ID
+    //     return new ResponseEntity<>("Review not found", HttpStatus.BAD_REQUEST); // Failed HTTP response: status code, headers, and body
+
+    // }
 
 }
