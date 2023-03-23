@@ -78,7 +78,7 @@ public class TeamQueue<T> implements Iterable<T> {
      * @return  this, instance of object
      */
     public Iterator<T> iterator() {
-        return new QueueIterator<>(this);
+        return new QueueIterator1<>(this);
     }
 }
 
@@ -88,11 +88,11 @@ public class TeamQueue<T> implements Iterable<T> {
  * 1. "has a" current reference in TeamQueue
  * 2. supports iterable required methods for next that returns a data object
  */
-class QueueIterator<T> implements Iterator<T> {
+class QueueIterator1<T> implements Iterator<T> {
     LinkedList<T> current;  // current element in iteration
 
     // Returns the head of the list
-    public QueueIterator(TeamQueue<T> q) {
+    public QueueIterator1(TeamQueue<T> q) {
         current = q.getHead();
     }
 
@@ -114,7 +114,7 @@ class QueueIterator<T> implements Iterator<T> {
  * 1. "has a" TeamQueue
  * 2. support management of TeamQueue tasks (aka: titling, adding a list, printing)
  */
-class QueueManager<T> {
+class QueueManager1<T> {
     // TeamQueue data
     static public boolean DEBUG = false;
     private final String name; // name of TeamQueue
@@ -125,7 +125,7 @@ class QueueManager<T> {
      *  TeamQueue constructor
      *  Title with empty TeamQueue
      */
-    public QueueManager(String name) {
+    public QueueManager1(String name) {
         this.name = name;
     }
 
@@ -134,7 +134,7 @@ class QueueManager<T> {
      *  Title with series of Arrays of Objects
      */
     @SafeVarargs
-    public QueueManager(String name, T[]... seriesOfObjects) {
+    public QueueManager1(String name, T[]... seriesOfObjects) {
         this.name = name;
         this.addList(seriesOfObjects);
     }
@@ -212,30 +212,30 @@ class QueueManager<T> {
  * Driver Class
  * Tests TeamQueue with string, integers, and mixes of Classes and types
  */
-class QueueTester {
+class QueueTester1 {
     public static void main(String[] args)
     {
         // Create iterable TeamQueue of Words
-        QueueManager.DEBUG = false;
+        QueueManager1.DEBUG = false;
         String[] words = new String[] { "mads", "slimy", "snakes", "sallying", "slowly", "slithered", "southward"};
-        QueueManager<String> qWords = new QueueManager<>("Words", words );
+        QueueManager1<String> qWords = new QueueManager1<>("Words", words );
         qWords.printQueue();
         qWords.deleteList();
 
         // Create iterable TeamQueue of Integers
-        QueueManager.DEBUG = false;
+        QueueManager1.DEBUG = false;
         Object[] pointvals = new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-        QueueManager<Object> qNums = new QueueManager<>("Integers", pointvals );
+        QueueManager1<Object> qNums = new QueueManager1<>("Integers", pointvals );
         qNums.printQueue();
         qNums.deleteList();
 
         // Create iterable TeamQueue of NCS Generics
-        QueueManager.DEBUG = false;
+        QueueManager1.DEBUG = false;
         Animal.setOrder(Animal.KeyType.name);
         Alphabet.setOrder(Alphabet.KeyType.letter);
         Cupcakes.setOrder(Cupcakes.KeyType.flavor);
         // Illustrates use of a series of repeating arguments
-        QueueManager<Generics> qGenerics = new QueueManager<>("Custom Generics",
+        QueueManager1<Generics> qGenerics = new QueueManager1<>("Custom Generics",
                 Alphabet.alphabetData(),
                 Animal.animalData(),
                 Cupcakes.cupCakeData()
@@ -244,8 +244,8 @@ class QueueTester {
         qGenerics.deleteList();
 
         // Create iterable TeamQueue of Mixed types of data
-        QueueManager.DEBUG = false;
-        QueueManager<Object> qMix = new QueueManager<>("Mixed");
+        QueueManager1.DEBUG = false;
+        QueueManager1<Object> qMix = new QueueManager1<>("Mixed");
         qMix.add("Start");
         qMix.addList(
                 words,
