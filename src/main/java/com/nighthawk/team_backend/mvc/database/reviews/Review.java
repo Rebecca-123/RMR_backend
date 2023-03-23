@@ -42,6 +42,26 @@ public class Review {
         return "Review [club=" + club.getName() + ", text=" + text + ", ticket=" + ticket + ", comments=" + comments + "]";
     }
 
+    public static Review[] init() {
+
+        // basics of class construction
+        Review rmr = new Review();
+        rmr.setText("assignment 1");
+        rmr.setComments("awesome");
+
+        // Array definition and data initialization
+        Review reviews[] = { rmr };
+        return (reviews);
+    }
+
+    // public static String toString(Club club) {
+    //     return "{" + "\"ID\": " + club.id + ", \"Name\": " + club.name + ", \"Email\": " + club.email
+    //             + ", \"Password\": " + club.password + ", \"Types\":" + club.types + ", \"Purpose\": " + club.purpose
+    //             + ", \"President\": " + club.president
+    //             + ", \"Advisor\": " + club.advisor + ", \"Meeting Time and Location\": " + club.meeting
+    //             + ", \"Additional Info\": " + club.info + ", \"Official Club\": " + club.official + "}";
+    // }
+
     public static void main(String[] args) {
         Club c = new Club ("hi@gmail.com", "abc123", "Test Club");
         Review review1 = new Review("First Review for Club", c, "githuburl", "something");
