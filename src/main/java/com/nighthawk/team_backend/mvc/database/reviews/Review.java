@@ -24,23 +24,30 @@ public class Review {
     @Column(columnDefinition="TEXT")
     private String text;
 
-    @Column(columnDefinition="NUMBER")
-    private int likes;
+    @Column(columnDefinition="TEXT")
+    private String ticket;
 
-    @Column(columnDefinition="NUMBER")
-    private int dislikes;
+    @Column(columnDefinition="TEXT")
+    private String comments;
 
     public Review(String text, Club c) {
         this.text = text;
         this.club = c;
-        this.likes = 0;
-        this.dislikes = 0;
+        this.ticket = ticket;
+        this.comments = comments;
     }
 
     @Override
     public String toString() {
-        return "Review [club=" + club.getName() + ", text=" + text + ", likes=" + likes + ", dislikes=" + dislikes + "]";
+        return "Review [club=" + club.getName() + ", text=" + text + ", ticket=" + ticket + ", comments=" + comments + "]";
     }
+
+    public static Review[] init() {
+        Review rmr = new Review();
+        rmr.setText("assignment 1");
+        rmr.setClub(null);
+    }
+
 
     public static void main(String[] args) {
         Club c = new Club ("hi@gmail.com", "abc123", "Test Club");
