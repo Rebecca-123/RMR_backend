@@ -52,12 +52,12 @@ public class ReviewViewController {
     }
 
     @PostMapping("/database/addreview/{id}")
-    public ResponseEntity<Object> reviewsAdd(@PathVariable("id") Long clubId, @RequestBody String text, @RequestBody String ticket, @RequestBody String comments) {
+    public ResponseEntity<Object> reviewsAdd(@PathVariable("id") Long clubId, @RequestBody String assignment, @RequestBody double score, @RequestBody String ticket, @RequestBody String comments) {
 
         Optional<Club> optional = clubRepo.findById(clubId);
         if (optional.isPresent()) { // Good ID
             Club club = optional.get(); // value from findByID
-            Review review = new Review(text, club, ticket, comments);
+            Review review = new Review(assignment, club, score, ticket, comments);
             reviewRepository.save(review);
             return new ResponseEntity<>("New review is created successfully for Club:" + clubId, HttpStatus.CREATED);
         }
