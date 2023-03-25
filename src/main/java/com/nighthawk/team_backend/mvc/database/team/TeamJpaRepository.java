@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,14 +11,14 @@ Extends the JpaRepository interface from Spring Data JPA.
 -- JpaRepository defines standard CRUD methods
 -- Via JPA the developer can retrieve database from relational databases to Java objects and vice versa.
  */
-public interface ClubJpaRepository extends JpaRepository<Club, Long> {
-  Club findByEmail(String email);
+public interface TeamJpaRepository extends JpaRepository<Team, Long> {
+  Team findByEmail(String email);
 
-  List<Club> findAllByOrderByNameAsc();
+  List<Team> findAllByOrderByNameAsc();
 
   // JPA query, findBy does JPA magic with "Name", "Containing", "Or", "Email",
   // "IgnoreCase"
-  List<Club> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email);
+  List<Team> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(String name, String email);
 
   /*
    * Custom JPA query articles, there are articles that show custom SQL as well
@@ -26,11 +26,11 @@ public interface ClubJpaRepository extends JpaRepository<Club, Long> {
    * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query
    * -methods
    */
-  Club findByEmailAndPassword(String email, String password);
+  Team findByEmailAndPassword(String email, String password);
 
   // Custom JPA query
   @Query(value = "SELECT * FROM Club p WHERE p.name LIKE ?1 or p.email LIKE ?1", nativeQuery = true)
-  List<Club> findByLikeTermNative(String term);
+  List<Team> findByLikeTermNative(String term);
   /*
    * https://www.baeldung.com/spring-data-jpa-query
    */

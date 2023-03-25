@@ -7,11 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NoteJpaRepository extends JpaRepository<Note, Long> {
-    List<Note> findByClubId(Long id);
-
+    List<Note> findByTeamId(Long id);
 
     @Transactional
-    void deleteByClubId(long id);
+    void deleteByTeamId(long id);
 
     List<Note> findAllNotesById(Long id);
 

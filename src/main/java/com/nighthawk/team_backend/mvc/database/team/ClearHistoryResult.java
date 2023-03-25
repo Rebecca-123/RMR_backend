@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 public class ClearHistoryResult {
     /**

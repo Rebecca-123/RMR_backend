@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
@@ -9,7 +9,7 @@ Extends the JpaRepository interface from Spring Data JPA.
 -- JpaRepository defines standard CRUD methods
 -- Via JPA the developer can retrieve database from relational databases to Java objects and vice versa.
  */
-public interface ClubSearchJpaRepository extends JpaRepository<ClubSearch, Long> {
+public interface TeamSearchJpaRepository extends JpaRepository<TeamSearch, Long> {
 
-  List<ClubSearch> findAll();
+  List<TeamSearch> findAll();
 }

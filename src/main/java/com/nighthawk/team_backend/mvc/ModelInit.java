@@ -9,10 +9,10 @@ import com.nighthawk.team_backend.mvc.jokes.Jokes;
 import com.nighthawk.team_backend.mvc.jokes.JokesJpaRepository;
 import com.nighthawk.team_backend.mvc.database.note.Note;
 import com.nighthawk.team_backend.mvc.database.note.NoteJpaRepository;
+import com.nighthawk.team_backend.mvc.database.team.Team;
+import com.nighthawk.team_backend.mvc.database.team.TeamDetailsService;
 import com.nighthawk.team_backend.mvc.event.Event;
 import com.nighthawk.team_backend.mvc.event.EventJpaRepository;
-import com.nighthawk.team_backend.mvc.database.club.Club;
-import com.nighthawk.team_backend.mvc.database.club.ClubDetailsService;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ModelInit {
     @Autowired
     NoteJpaRepository noteRepo;
     @Autowired
-    ClubDetailsService clubService;
+    TeamDetailsService teamService;
 
     @Bean
     CommandLineRunner run() { // The run() method will be executed after the application starts
@@ -43,21 +43,21 @@ public class ModelInit {
             for (String event : eventArray) {
                 List<Event> eventFound = eventRepo.findByEventIgnoreCase(event); // JPA lookup
                 if (eventFound.size() == 0)
-                eventRepo.save(new Event(null, event, 0, 0)); // JPA save
+                    eventRepo.save(new Event(null, event, 0, 0)); // JPA save
             }
 
             // Person database is populated with test data
-            Club[] clubArray = Club.init();
-            for (Club club : clubArray) {
+            Team[] teamArray = Team.init();
+            for (Team team : teamArray) {
                 // findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase
-                List<Club> clubFound = clubService.list(club.getName(), club.getEmail()); // lookup
-                if (clubFound.size() == 0) {
-                    clubService.save(club); // save
+                List<Team> teamFound = teamService.list(team.getName(), team.getEmail()); // lookup
+                if (teamFound.size() == 0) {
+                    teamService.save(team); // save
 
                     // Each "test person" starts with a "test note"
-                    // String text = "note 1 for " + club.getName();
-                    String text = "note 1 for " + club.getName();
-                    Note n = new Note(text, club); // constructor uses new person as Many-to-One association
+                    // String text = "note 1 for " + team.getName();
+                    String text = "note 1 for " + team.getName();
+                    Note n = new Note(text, team); // constructor uses new person as Many-to-One association
                     noteRepo.save(n); // JPA Save
                 }
             }

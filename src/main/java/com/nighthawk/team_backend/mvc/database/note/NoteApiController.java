@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.nighthawk.team_backend.mvc.database.club.Club;
-import com.nighthawk.team_backend.mvc.database.club.ClubJpaRepository;
+import com.nighthawk.team_backend.mvc.database.team.Team;
+import com.nighthawk.team_backend.mvc.database.team.TeamJpaRepository;
 
 import java.util.*;
 
@@ -20,29 +20,29 @@ public class NoteApiController {
     private NoteJpaRepository notejparepository;
 
     @Autowired
-    private ClubJpaRepository jparepository;
+    private TeamJpaRepository jparepository;
 
     /*
      * GET List of People
      */
     /*
-     * GET individual Club using ID
+     * GET individual Team using ID
      */
     @GetMapping("/{id}")
-    public ResponseEntity<List<Note>> getNote(@PathVariable Long id) throws JsonMappingException, JsonProcessingException {
+    public ResponseEntity<List<Note>> getNote(@PathVariable Long id)
+            throws JsonMappingException, JsonProcessingException {
         List<Note> note = notejparepository.findAllNotesById(id);
         return new ResponseEntity<>(note, HttpStatus.OK);
     }
-    
 
-   /*
+    /*
      * POST Aa record by Requesting Parameters from URI
      */
 
     @PostMapping("/post/{id}")
     public ResponseEntity<Object> note_result(@PathVariable Long id, @RequestBody final Map<String, String> map) {
-        Optional<Club> optional = jparepository.findById(id);
-        Club club = optional.get(); // value from findByID
+        Optional<Team> optional = jparepository.findById(id);
+        Team club = optional.get(); // value from findByID
         String text = (String) map.get("text");
 
         Note note = new Note(text, club);

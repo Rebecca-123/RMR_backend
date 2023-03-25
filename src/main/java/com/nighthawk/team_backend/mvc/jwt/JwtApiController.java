@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nighthawk.team_backend.mvc.database.club.Club;
-import com.nighthawk.team_backend.mvc.database.club.ClubDetailsService;
-import com.nighthawk.team_backend.mvc.database.club.ClubJpaRepository;
+import com.nighthawk.team_backend.mvc.database.team.Team;
+import com.nighthawk.team_backend.mvc.database.team.TeamDetailsService;
+import com.nighthawk.team_backend.mvc.database.team.TeamJpaRepository;
 
 @RestController
 @CrossOrigin
@@ -32,16 +32,16 @@ public class JwtApiController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private ClubDetailsService clubDetailsService;
+    private TeamDetailsService teamDetailsService;
 
     @Autowired // Inject ClubJpaRepository
-    private ClubJpaRepository clubJpaRepository;
+    private TeamJpaRepository teamJpaRepository;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<MyResponse> createAuthenticationToken(@RequestBody Club authenticationRequest)
+    public ResponseEntity<MyResponse> createAuthenticationToken(@RequestBody Team authenticationRequest)
             throws Exception {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-        final UserDetails userDetails = clubDetailsService
+        final UserDetails userDetails = teamDetailsService
                 .loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
@@ -58,8 +58,8 @@ public class JwtApiController {
         String email = payload.get("sub").asText();
 
         // find ID corresponding to email
-        Club club = clubJpaRepository.findByEmail(email);
-        Long id = club.getId();
+        Team team = teamJpaRepository.findByEmail(email);
+        Long id = team.getId();
 
         final ResponseCookie tokenCookie = ResponseCookie.from("jwt", token)
                 .httpOnly(true)

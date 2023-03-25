@@ -1,5 +1,6 @@
 package com.nighthawk.team_backend.mvc.database.reviews;
-import com.nighthawk.team_backend.mvc.database.club.Club;
+
+import com.nighthawk.team_backend.mvc.database.team.Team;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,25 +18,25 @@ public class Review {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="club_id")
-    private Club club;
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     @NotNull
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String assignment;
 
     @NotNull
     private double score;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String ticket;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String comments;
 
-    public Review(String assignment, Club c, double score, String ticket, String comments) {
+    public Review(String assignment, Team c, double score, String ticket, String comments) {
         this.assignment = assignment;
-        this.club = c;
+        this.team = c;
         this.score = score;
         this.ticket = ticket;
         this.comments = comments;
@@ -43,7 +44,8 @@ public class Review {
 
     @Override
     public String toString() {
-        return "Review [club=" + club.getName() + ", assignment=" + assignment + ", score=" + score + ", ticket=" + ticket + ", comments=" + comments + "]";
+        return "Review [team=" + team.getName() + ", assignment=" + assignment + ", score=" + score + ", ticket="
+                + ticket + ", comments=" + comments + "]";
     }
 
     public static Review[] init() {
@@ -72,7 +74,7 @@ public class Review {
     }
 
     public static void main(String[] args) {
-        Club c = new Club ("hi@gmail.com", "abc123", "Test Club");
+        Team c = new Team("hi@gmail.com", "abc123", "Test Team");
         Review review1 = new Review("Assignment 1", c, 2.7, "review ticket", "something");
         System.out.println("Review 1: " + review1.toString());
         Review reviews[] = init();
@@ -84,4 +86,3 @@ public class Review {
 
     }
 }
-

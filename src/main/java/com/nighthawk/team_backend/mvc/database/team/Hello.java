@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

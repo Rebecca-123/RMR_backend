@@ -1,9 +1,10 @@
 package com.nighthawk.team_backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.nighthawk.team_backend.mvc.database.team.TeamDetailsService;
 import com.nighthawk.team_backend.mvc.jwt.JwtAuthenticationEntryPoint;
 import com.nighthawk.team_backend.mvc.jwt.JwtRequestFilter;
-import com.nighthawk.team_backend.mvc.database.club.ClubDetailsService;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     @Autowired
-    private ClubDetailsService clubDetailsService;
+    private TeamDetailsService teamDetailsService;
 
     @Bean // Sets up password encoding style
     PasswordEncoder passwordEncoder() {
@@ -48,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // configure AuthenticationManager so that it knows from where to load
         // user for matching credentials
         // Use BCryptPasswordEncoder
-        auth.userDetailsService(clubDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(teamDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -66,8 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // list the requests/endpoints need to be authenticated
                 .authorizeRequests()
                 .antMatchers("/hello").authenticated()
-                .antMatchers("/api/club/update/**").authenticated()
-                .antMatchers("/api/club/delete/**").authenticated()
+                .antMatchers("/api/team/update/**").authenticated()
+                .antMatchers("/api/team/delete/**").authenticated()
                 .and()
                 // support cors
                 .cors().and()

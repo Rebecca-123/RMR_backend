@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class ClubRole {
+public class TeamRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

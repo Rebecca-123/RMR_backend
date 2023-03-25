@@ -1,4 +1,4 @@
-package com.nighthawk.team_backend.mvc.database.club;
+package com.nighthawk.team_backend.mvc.database.team;
 
 import lombok.*;
 
@@ -22,7 +22,7 @@ The last annotation connect to database
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Club {
+public class Team {
     // automatic unique identifier for Person record
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,14 +89,14 @@ public class Club {
     @Size(min = 1, max = 1, message = "Official Club? (Y or N)")
     private String official;
 
-    public Club(String email, String password, String name) {
+    public Team(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
     }
 
     // Initializer used when setting database from an API
-    public Club(String email, String password, String name, String types, String purpose, String president,
+    public Team(String email, String password, String name, String types, String purpose, String president,
             String advisor,
             String meeting, String info, String official) {
         this.email = email;
@@ -111,10 +111,10 @@ public class Club {
         this.official = official;
     }
 
-    public static Club[] init() {
+    public static Team[] init() {
 
         // basics of class construction
-        Club nhs = new Club();
+        Team nhs = new Team();
         nhs.setEmail("dnhshonorsociety@gmail.com");
         nhs.setPassword("nhs");
         nhs.setName("Del Norte National Honor Society");
@@ -127,7 +127,7 @@ public class Club {
         nhs.setInfo("Website: https://dnhshonorsociety.wixsite.com/dnhs");
         nhs.setOfficial("Y");
 
-        Club ncs = new Club();
+        Team ncs = new Team();
         ncs.setEmail("tedison@example.com");
         ncs.setPassword("123toby");
         ncs.setName("Nighthawk Coding Society");
@@ -139,11 +139,11 @@ public class Club {
         ncs.setOfficial("N");
 
         // Array definition and data initialization
-        Club clubs[] = { nhs, ncs };
+        Team clubs[] = { nhs, ncs };
         return (clubs);
     }
 
-    public static String toString(Club club) {
+    public static String toString(Team club) {
         return "{" + "\"ID\": " + club.id + ", \"Name\": " + club.name + ", \"Email\": " + club.email
                 + ", \"Password\": " + club.password + ", \"Types\":" + club.types + ", \"Purpose\": " + club.purpose
                 + ", \"President\": " + club.president
@@ -154,10 +154,10 @@ public class Club {
     // tester method
     public static void main(String[] args) {
         // obtain from initializer
-        Club clubs[] = init();
+        Team clubs[] = init();
 
         // iterate using "enhanced for loop"
-        for (Club club : clubs) {
+        for (Team club : clubs) {
             System.out.println(toString(club)); // print object
         }
     }
