@@ -48,11 +48,11 @@ public class ReviewApiController {
     public ResponseEntity<Object> review_result(@PathVariable Long id, @RequestBody String assignment,
     @RequestBody double score, @RequestBody String ticket, @RequestBody String comments) {
         Optional<Team> optional = jparepository.findById(id);
-        Team club = optional.get(); // value from findByID
-        Review review = new Review(assignment, club, score, ticket, comments);
+        Team team = optional.get(); // value from findByID
+        Review review = new Review(assignment, team, score, ticket, comments);
 
         reviewjparepository.save(review);
-        return new ResponseEntity<>("Review for club: " + club.getName() + " was created successfully",
+        return new ResponseEntity<>("Review for club: " + team.getName() + " was created successfully",
                 HttpStatus.CREATED);
     }
 }
