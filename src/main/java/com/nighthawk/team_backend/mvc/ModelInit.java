@@ -54,7 +54,7 @@ public class ModelInit {
             Team[] teamArray = Team.init();
             for (Team team : teamArray) {
                 // findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase
-                List<Team> teamFound = teamService.list(team.getBigteam(), team.getNames()); // lookup
+                List<Team> teamFound = teamService.list(team.getBigteam(), team.getEmail()); // lookup
                 if (teamFound.size() == 0) {
                     teamService.save(team); // save
 

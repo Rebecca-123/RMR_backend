@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import static javax.persistence.FetchType.EAGER;
 
 import javax.persistence.*;
@@ -31,13 +34,18 @@ public class Team {
     @NonNull
     private String bigteam;
 
-    // name, password, roles are key to login and authentication
+    // email, password, roles are key to login and authentication
     @NotEmpty
-    // @NonNull: Places this in @RequiredArgsConstructor
     @NonNull
-    @Size(min = 1, max = 50)
+    @Size(min = 5)
     @Column(unique = true)
-    private String names;
+    @Email
+    private String email;
+
+    @NotEmpty
+    @NonNull
+    // @NonNull: Places this in @RequiredArgsConstructor
+    private ArrayList<String> names;
 
     private int period;
 
@@ -48,8 +56,9 @@ public class Team {
     // @ManyToMany(fetch = EAGER)
     // private Collection<ClubRole> roles = new ArrayList<>();
 
-    public Team(String bigteam, String names, String password, int period) {
+    public Team(String bigteam, String email, ArrayList<String> names, String password, int period) {
         this.bigteam = bigteam;
+        this.email = email;
         this.names = names;
         this.password = password;
         this.period = period;
@@ -60,7 +69,11 @@ public class Team {
         // basics of class construction
         Team nhs = new Team();
         nhs.setBigteam("RMR");
-        nhs.setNames("Bob, Bob");
+        nhs.setEmail("abc@gmail.com");
+        ArrayList<String> mySet = new ArrayList<String>();
+        mySet.add("Bob");
+        mySet.add("Joe");
+        nhs.setNames(mySet);
         nhs.setPassword("123");
         nhs.setPeriod(1);
 
@@ -70,7 +83,8 @@ public class Team {
     }
 
     public static String toString(Team club) {
-        return "{" + "\"ID\": " + club.id + ", \"Big Team\": " + club.bigteam + ", \"Names\": " + club.names
+        return "{" + "\"ID\": " + club.id + ", \"Big Team\": " + club.bigteam + ", \"Email\": " + club.email
+                + ", \"Names\": " + club.names
                 + ", \"Period\": " + club.period + ", \"Password\": " + club.password + "}";
     }
 

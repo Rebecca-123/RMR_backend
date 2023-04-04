@@ -82,12 +82,12 @@ public class TeamApiController {
     @PostMapping("/post")
     public ResponseEntity<Object> postTeam(@RequestBody Team team) {
         // check for duplicate
-        if (jparepository.findByNames(team.getNames()) != null) {
+        if (jparepository.findByEmail(team.getEmail()) != null) {
             // Return an error response indicating that the email is already in use
             return new ResponseEntity<>("Email already in use", HttpStatus.CONFLICT);
         }
         repository.save(team);
-        return new ResponseEntity<>(team.getNames() + " was created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(team.getEmail() + " was created successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{id}")
@@ -96,9 +96,10 @@ public class TeamApiController {
         if (optional.isPresent()) { // Good ID
             Team oldTeam = optional.get(); // value from findByID
             // update attributes of the team
+            oldTeam.setEmail(team.getEmail());
             oldTeam.setPassword(team.getPassword());
             repository.save(oldTeam); // save changes to team
-            return new ResponseEntity<>(oldTeam.getNames() + " was updated successfully", HttpStatus.OK); // OK HTTP
+            return new ResponseEntity<>(oldTeam.getEmail() + " was updated successfully", HttpStatus.OK); // OK HTTP
             // response: status
             // code, headers,
             // and body

@@ -12,13 +12,13 @@ Extends the JpaRepository interface from Spring Data JPA.
 -- Via JPA the developer can retrieve database from relational databases to Java objects and vice versa.
  */
 public interface TeamJpaRepository extends JpaRepository<Team, Long> {
-  Team findByNames(String names);
+  Team findByEmail(String email);
 
   List<Team> findAllByOrderByNamesAsc();
 
   // JPA query, findBy does JPA magic with "Name", "Containing", "Or", "Email",
   // "IgnoreCase"
-  List<Team> findByBigteamContainingIgnoreCaseOrNamesContainingIgnoreCase(String bigteam, String names);
+  List<Team> findByBigteamContainingIgnoreCaseOrEmailContainingIgnoreCase(String bigteam, String email);
 
   /*
    * Custom JPA query articles, there are articles that show custom SQL as well
@@ -26,7 +26,7 @@ public interface TeamJpaRepository extends JpaRepository<Team, Long> {
    * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query
    * -methods
    */
-  Team findByNamesAndPassword(String names, String password);
+  Team findByEmailAndPassword(String email, String password);
 
   // Custom JPA query
   @Query(value = "SELECT * FROM Club p WHERE p.name LIKE ?1 or p.email LIKE ?1", nativeQuery = true)

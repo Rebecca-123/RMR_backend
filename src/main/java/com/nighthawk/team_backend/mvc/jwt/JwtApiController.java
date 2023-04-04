@@ -40,9 +40,9 @@ public class JwtApiController {
     @PostMapping("/authenticate")
     public ResponseEntity<MyResponse> createAuthenticationToken(@RequestBody Team authenticationRequest)
             throws Exception {
-        authenticate(authenticationRequest.getNames(), authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         final UserDetails userDetails = teamDetailsService
-                .loadUserByUsername(authenticationRequest.getNames());
+                .loadUserByUsername(authenticationRequest.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         // Split the JWT into its three parts
@@ -58,7 +58,7 @@ public class JwtApiController {
         String email = payload.get("sub").asText();
 
         // find ID corresponding to email
-        Team team = teamJpaRepository.findByNames(email);
+        Team team = teamJpaRepository.findByEmail(email);
         Long id = team.getId();
 
         final ResponseCookie tokenCookie = ResponseCookie.from("jwt", token)

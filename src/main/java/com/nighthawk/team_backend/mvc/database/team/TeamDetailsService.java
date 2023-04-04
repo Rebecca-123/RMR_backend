@@ -34,7 +34,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
     @Override
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        Team team = teamJpaRepository.findByNames(email); // username in the database
+        Team team = teamJpaRepository.findByEmail(email); // username in the database
         if (team == null) {
             throw new UsernameNotFoundException("User not found with username: " + email);
         }
@@ -46,7 +46,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
         // // list of roles gets past in for spring
         // // security
         // });
-        return new org.springframework.security.core.userdetails.User(team.getNames(), team.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(team.getEmail(), team.getPassword(), authorities);
     }
 
     /* Team Section */
@@ -56,8 +56,8 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
     }
 
     // custom query to find match to name or email
-    public List<Team> list(String bigteam, String names) {
-        return teamJpaRepository.findByBigteamContainingIgnoreCaseOrNamesContainingIgnoreCase(bigteam, names);
+    public List<Team> list(String bigteam, String email) {
+        return teamJpaRepository.findByBigteamContainingIgnoreCaseOrEmailContainingIgnoreCase(bigteam, email);
     }
 
     // // custom query to find anything containing term in name or email ignoring
@@ -86,7 +86,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
     }
 
     public Team getByNames(String email) {
-        return (teamJpaRepository.findByNames(email));
+        return (teamJpaRepository.findByEmail(email));
     }
 
     public void delete(long id) {
@@ -126,7 +126,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
 
     public void addRoleToTeam(String email, String roleName) { // by passing in the two strings you are giving the user
                                                                // that certain role
-        Team team = teamJpaRepository.findByNames(email);
+        Team team = teamJpaRepository.findByEmail(email);
         if (team != null) { // verify team
             TeamRole role = teamRoleJpaRepository.findByName(roleName);
             // if (role != null) { // verify role
