@@ -44,7 +44,7 @@ public class Review {
 
     @Override
     public String toString() {
-        return "Review [team=" + team.getName() + ", assignment=" + assignment + ", score=" + score + ", ticket="
+        return "Review [team=" + team.getNames() + ", assignment=" + assignment + ", score=" + score + ", ticket="
                 + ticket + ", comments=" + comments + "]";
     }
 
@@ -74,7 +74,7 @@ public class Review {
     }
 
     public static void main(String[] args) {
-        Team c = new Team("hi@gmail.com", "abc123", "Test Team");
+        Team c = new Team("hi@gmail.com", "abc123", "Test Team", 0);
         Review review1 = new Review("Assignment 1", c, 2.7, "review ticket", "something");
         System.out.println("Review 1: " + review1.toString());
         Review reviews[] = init();

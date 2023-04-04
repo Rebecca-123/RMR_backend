@@ -52,7 +52,7 @@ public class ReviewApiController {
         Review review = new Review(assignment, team, score, ticket, comments);
 
         reviewjparepository.save(review);
-        return new ResponseEntity<>("Review for club: " + team.getName() + " was created successfully",
+        return new ResponseEntity<>("Review for club: " + team.getNames() + " was created successfully",
                 HttpStatus.CREATED);
     }
 }
