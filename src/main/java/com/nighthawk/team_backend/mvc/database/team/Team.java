@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 // import com.nighthawk.team_backend.mvc.database.note.Note;
 
 /*
-Person is a POJO, Plain Old Java Object.
+Team is a POJO, Plain Old Java Object.
 First set of annotations add functionality to POJO
 --- @Setter @Getter @ToString @NoArgsConstructor @RequiredArgsConstructor
 The last annotation connect to database
@@ -23,142 +23,65 @@ The last annotation connect to database
 @AllArgsConstructor
 @Entity
 public class Team {
-    // automatic unique identifier for Person record
+    // automatic unique identifier for Team record
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // email, password, roles are key to login and authentication
+    @NonNull
+    private String bigteam;
+
+    // name, password, roles are key to login and authentication
     @NotEmpty
-    @Size(min = 5)
+    // @NonNull: Places this in @RequiredArgsConstructor
+    @NonNull
+    @Size(min = 1, max = 50)
     @Column(unique = true)
-    @Email
-    private String email;
+    private String names;
+
+    private int period;
 
     @NotEmpty
     private String password;
-
-    // @NonNull: Places this in @RequiredArgsConstructor
-    @NonNull
-    @Size(min = 2, max = 50, message = "Club Name (2 to 50 chars)")
-    private String name;
 
     // To be implemented
     // @ManyToMany(fetch = EAGER)
     // private Collection<ClubRole> roles = new ArrayList<>();
 
-    private String types;
-
-    /*
-     * @NonNull
-     * private Note note = new Note("test", this);
-     * 
-     * public String getNote(){
-     * return note.getText();
-     * }
-     * 
-     * public void setNote(String note_input){
-     * note.setText(note_input);;
-     * }
-     * 
-     */
-
-    // @NonNull: Places this in @RequiredArgsConstructor
-    @NonNull
-    @Size(min = 2, max = 300, message = "Club Purpose (2 to 300 chars)")
-    private String purpose;
-
-    // @NonNull: Places this in @RequiredArgsConstructor
-    @NonNull
-    @Size(min = 2, max = 50, message = "Club President (2 to 30 chars)")
-    private String president;
-
-    // @NonNull: Places this in @RequiredArgsConstructor
-    @NonNull
-    @Size(min = 2, max = 50, message = "Staff Advisor (2 to 50 chars)")
-    private String advisor;
-
-    // @NonNull: Places this in @RequiredArgsConstructor
-    @NonNull
-    @Size(min = 2, max = 50, message = "Meeting Time and Location (2 to 50 chars)")
-    private String meeting;
-
-    @Size(min = 2, max = 150, message = "Additional Info (2 to 150 chars)")
-    private String info;
-
-    @Size(min = 1, max = 1, message = "Official Club? (Y or N)")
-    private String official;
-
-    public Team(String email, String password, String name) {
-        this.email = email;
+    public Team(String bigteam, String names, String password, int period) {
+        this.bigteam = bigteam;
+        this.names = names;
         this.password = password;
-        this.name = name;
-    }
-
-    // Initializer used when setting database from an API
-    public Team(String email, String password, String name, String types, String purpose, String president,
-            String advisor,
-            String meeting, String info, String official) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.types = types;
-        this.purpose = purpose;
-        this.president = president;
-        this.advisor = advisor;
-        this.meeting = meeting;
-        this.info = info;
-        this.official = official;
+        this.period = period;
     }
 
     public static Team[] init() {
 
         // basics of class construction
         Team nhs = new Team();
-        nhs.setEmail("dnhshonorsociety@gmail.com");
-        nhs.setPassword("nhs");
-        nhs.setName("Del Norte National Honor Society");
-        nhs.setTypes("Service");
-        nhs.setPurpose(
-                "A national volunteer organization for high school students who go out into the community with four pillars in mind: scholarship, service, leadership, and character.");
-        nhs.setPresident("Dominic De La Torre");
-        nhs.setAdvisor("Mr. Swanson");
-        nhs.setMeeting("N/A");
-        nhs.setInfo("Website: https://dnhshonorsociety.wixsite.com/dnhs");
-        nhs.setOfficial("Y");
-
-        Team ncs = new Team();
-        ncs.setEmail("tedison@example.com");
-        ncs.setPassword("123toby");
-        ncs.setName("Nighthawk Coding Society");
-        ncs.setTypes("STEM");
-        ncs.setPurpose("CODE CODE CODE!");
-        ncs.setPresident("N/A");
-        ncs.setAdvisor("Mr. M");
-        ncs.setInfo("GitHub: https://github.com/nighthawkcoders");
-        ncs.setOfficial("N");
+        nhs.setBigteam("RMR");
+        nhs.setNames("Bob, Bob");
+        nhs.setPassword("123");
+        nhs.setPeriod(1);
 
         // Array definition and data initialization
-        Team clubs[] = { nhs, ncs };
+        Team clubs[] = { nhs };
         return (clubs);
     }
 
     public static String toString(Team club) {
-        return "{" + "\"ID\": " + club.id + ", \"Name\": " + club.name + ", \"Email\": " + club.email
-                + ", \"Password\": " + club.password + ", \"Types\":" + club.types + ", \"Purpose\": " + club.purpose
-                + ", \"President\": " + club.president
-                + ", \"Advisor\": " + club.advisor + ", \"Meeting Time and Location\": " + club.meeting
-                + ", \"Additional Info\": " + club.info + ", \"Official Club\": " + club.official + "}";
+        return "{" + "\"ID\": " + club.id + ", \"Big Team\": " + club.bigteam + ", \"Names\": " + club.names
+                + ", \"Period\": " + club.period + ", \"Password\": " + club.password + "}";
     }
 
     // tester method
     public static void main(String[] args) {
         // obtain from initializer
-        Team clubs[] = init();
+        Team teams[] = init();
 
         // iterate using "enhanced for loop"
-        for (Team club : clubs) {
-            System.out.println(toString(club)); // print object
+        for (Team team : teams) {
+            System.out.println(toString(team)); // print object
         }
     }
 
