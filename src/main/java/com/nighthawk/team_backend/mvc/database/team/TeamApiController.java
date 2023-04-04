@@ -82,12 +82,12 @@ public class TeamApiController {
     @PostMapping("/post")
     public ResponseEntity<Object> postTeam(@RequestBody Team team) {
         // check for duplicate
-        if (jparepository.findByEmail(team.getEmail()) != null) {
+        if (jparepository.findByNames(team.getNames()) != null) {
             // Return an error response indicating that the email is already in use
             return new ResponseEntity<>("Email already in use", HttpStatus.CONFLICT);
         }
         repository.save(team);
-        return new ResponseEntity<>(team.getEmail() + " was created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(team.getNames() + " was created successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{id}")
@@ -96,18 +96,9 @@ public class TeamApiController {
         if (optional.isPresent()) { // Good ID
             Team oldTeam = optional.get(); // value from findByID
             // update attributes of the team
-            oldTeam.setEmail(team.getEmail());
             oldTeam.setPassword(team.getPassword());
-            oldTeam.setName(team.getName());
-            oldTeam.setTypes(team.getTypes());
-            oldTeam.setPurpose(team.getPurpose());
-            oldTeam.setPresident(team.getPresident());
-            oldTeam.setAdvisor(team.getAdvisor());
-            oldTeam.setMeeting(team.getMeeting());
-            oldTeam.setInfo(team.getInfo());
-            oldTeam.setOfficial(team.getOfficial());
             repository.save(oldTeam); // save changes to team
-            return new ResponseEntity<>(oldTeam.getName() + " was updated successfully", HttpStatus.OK); // OK HTTP
+            return new ResponseEntity<>(oldTeam.getNames() + " was updated successfully", HttpStatus.OK); // OK HTTP
             // response: status
             // code, headers,
             // and body
