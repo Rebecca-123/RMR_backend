@@ -34,8 +34,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
     @Override
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        Team team = teamJpaRepository.findByEmail(email); // setting variable user equal to the method finding the
-                                                          // username in the database
+        Team team = teamJpaRepository.findByNames(email); // username in the database
         if (team == null) {
             throw new UsernameNotFoundException("User not found with username: " + email);
         }
@@ -47,24 +46,27 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
         // // list of roles gets past in for spring
         // // security
         // });
-        return new org.springframework.security.core.userdetails.User(team.getEmail(), team.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(team.getNames(), team.getPassword(), authorities);
     }
 
     /* Team Section */
 
     public List<Team> listAll() {
-        return teamJpaRepository.findAllByOrderByNameAsc();
+        return teamJpaRepository.findAllByOrderByNamesAsc();
     }
 
     // custom query to find match to name or email
-    public List<Team> list(String name, String email) {
-        return teamJpaRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(name, email);
+    public List<Team> list(String bigteam, String names) {
+        return teamJpaRepository.findByBigteamContainingIgnoreCaseOrNamesContainingIgnoreCase(bigteam, names);
     }
 
-    // custom query to find anything containing term in name or email ignoring case
-    public List<Team> listLike(String term) {
-        return teamJpaRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(term, term);
-    }
+    // // custom query to find anything containing term in name or email ignoring
+    // case
+    // public List<Team> listLike(String term) {
+    // return
+    // teamJpaRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(term,
+    // term);
+    // }
 
     // custom query to find anything containing term in name or email ignoring case
     public List<Team> listLikeNative(String term) {
@@ -83,8 +85,8 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
                 : null;
     }
 
-    public Team getByEmail(String email) {
-        return (teamJpaRepository.findByEmail(email));
+    public Team getByNames(String email) {
+        return (teamJpaRepository.findByNames(email));
     }
 
     public void delete(long id) {
@@ -124,7 +126,7 @@ public class TeamDetailsService implements UserDetailsService { // "implements" 
 
     public void addRoleToTeam(String email, String roleName) { // by passing in the two strings you are giving the user
                                                                // that certain role
-        Team team = teamJpaRepository.findByEmail(email);
+        Team team = teamJpaRepository.findByNames(email);
         if (team != null) { // verify team
             TeamRole role = teamRoleJpaRepository.findByName(roleName);
             // if (role != null) { // verify role
