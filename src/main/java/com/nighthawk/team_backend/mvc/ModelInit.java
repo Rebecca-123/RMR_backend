@@ -54,18 +54,18 @@ public class ModelInit {
             Team[] teamArray = Team.init();
             for (Team team : teamArray) {
                 // findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase
-                List<Team> teamFound = teamService.list(team.getName(), team.getEmail()); // lookup
+                List<Team> teamFound = teamService.list(team.getBigteam(), team.getNames()); // lookup
                 if (teamFound.size() == 0) {
                     teamService.save(team); // save
 
                     // Each "test person" starts with a "test note"
                     // String text = "note 1 for " + team.getName();
-                    String text = "note 1 for " + team.getName();
+                    String text = "note 1 for " + team.getNames();
                     Note n = new Note(text, team); // constructor uses new person as Many-to-One association
                     noteRepo.save(n); // JPA Save
                     Review r = new Review("assignment", team, 0.0, "ticket", "comments");
                     reviewRepo.save(r);
-                
+
                 }
             }
 
