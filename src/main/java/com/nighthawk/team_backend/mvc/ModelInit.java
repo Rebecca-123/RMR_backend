@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nighthawk.team_backend.mvc.jokes.Jokes;
 import com.nighthawk.team_backend.mvc.jokes.JokesJpaRepository;
-import com.nighthawk.team_backend.mvc.database.note.Note;
-import com.nighthawk.team_backend.mvc.database.note.NoteJpaRepository;
 import com.nighthawk.team_backend.mvc.database.reviews.Review;
 import com.nighthawk.team_backend.mvc.database.reviews.ReviewJpaRepository;
 import com.nighthawk.team_backend.mvc.database.team.Team;
@@ -24,8 +22,6 @@ public class ModelInit {
     JokesJpaRepository jokesRepo;
     @Autowired
     EventJpaRepository eventRepo;
-    @Autowired
-    NoteJpaRepository noteRepo;
     @Autowired
     ReviewJpaRepository reviewRepo;
     @Autowired
@@ -58,11 +54,6 @@ public class ModelInit {
                 if (teamFound.size() == 0) {
                     teamService.save(team); // save
 
-                    // Each "test person" starts with a "test note"
-                    // String text = "note 1 for " + team.getName();
-                    String text = "note 1 for " + team.getNames();
-                    Note n = new Note(text, team); // constructor uses new person as Many-to-One association
-                    noteRepo.save(n); // JPA Save
                     Review r = new Review("assignment", team, 0.0, "ticket", "comments");
                     reviewRepo.save(r);
 

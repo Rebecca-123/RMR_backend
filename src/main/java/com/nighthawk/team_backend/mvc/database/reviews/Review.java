@@ -3,6 +3,8 @@ package com.nighthawk.team_backend.mvc.database.reviews;
 import com.nighthawk.team_backend.mvc.database.team.Team;
 import lombok.*;
 
+import java.util.ArrayList;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -74,7 +76,9 @@ public class Review {
     }
 
     public static void main(String[] args) {
-        Team c = new Team("hi@gmail.com", "abc123", "Test Team", 0);
+        ArrayList<String> team = new ArrayList<String>();
+        team.add("Bob");
+        Team c = new Team("RMR", "hi@gmail.com", team, "Test Team", 2);
         Review review1 = new Review("Assignment 1", c, 2.7, "review ticket", "something");
         System.out.println("Review 1: " + review1.toString());
         Review reviews[] = init();
