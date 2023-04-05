@@ -96,7 +96,10 @@ public class TeamApiController {
         if (optional.isPresent()) { // Good ID
             Team oldTeam = optional.get(); // value from findByID
             // update attributes of the team
+            oldTeam.setBigteam(team.getBigteam());
             oldTeam.setEmail(team.getEmail());
+            oldTeam.setNames(team.getNames());
+            oldTeam.setPeriod(team.getPeriod());
             oldTeam.setPassword(team.getPassword());
             repository.save(oldTeam); // save changes to team
             return new ResponseEntity<>(oldTeam.getEmail() + " was updated successfully", HttpStatus.OK); // OK HTTP
