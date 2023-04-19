@@ -48,25 +48,6 @@ public class TeamApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    // /*
-    // * DELETE individual Team using ID
-    // */
-    // @DeleteMapping("/delete/{id}")
-    // public ResponseEntity<Team> deleteTeam(@PathVariable long id) {
-    // Optional<Team> optional = jparepository.findById(id);
-    // if (optional.isPresent()) { // Good ID
-    // Team team = optional.get(); // value from findByID
-    // jparepository.deleteById(id); // value from findByID
-    // return new ResponseEntity<>(team, HttpStatus.OK); // OK HTTP response: status
-    // code, headers, and body
-    // }
-    // // Bad ID
-    // return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    // }
-
-    /*
-     * DELETE individual Team using ID, but with POST
-     */
     @PostMapping("/delete/{id}")
     public ResponseEntity<Team> deleteTeam(@PathVariable long id) {
         Optional<Team> optional = jparepository.findById(id);
@@ -78,6 +59,7 @@ public class TeamApiController {
         // Bad ID
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
 
     @PostMapping("/post")
     public ResponseEntity<Object> postTeam(@RequestBody Team team) {
