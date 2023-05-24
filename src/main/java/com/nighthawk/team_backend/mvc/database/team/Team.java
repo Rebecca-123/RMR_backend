@@ -48,6 +48,7 @@ public class Team {
     // @NonNull
     // @NonNull: Places this in @RequiredArgsConstructor
     private ArrayList<Member> names;
+    // creating a member arraylist 
 
     private int period;
 
