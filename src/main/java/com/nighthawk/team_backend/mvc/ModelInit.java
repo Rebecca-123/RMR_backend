@@ -9,6 +9,8 @@ import com.nighthawk.team_backend.mvc.jokes.Jokes;
 import com.nighthawk.team_backend.mvc.jokes.JokesJpaRepository;
 import com.nighthawk.team_backend.mvc.database.reviews.Review;
 import com.nighthawk.team_backend.mvc.database.reviews.ReviewJpaRepository;
+import com.nighthawk.team_backend.mvc.database.tasks.Task;
+import com.nighthawk.team_backend.mvc.database.tasks.TaskJpaRepository;
 import com.nighthawk.team_backend.mvc.database.team.Team;
 import com.nighthawk.team_backend.mvc.database.team.TeamDetailsService;
 import com.nighthawk.team_backend.mvc.event.Event;
