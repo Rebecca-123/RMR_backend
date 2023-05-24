@@ -78,7 +78,7 @@ public class Review {
     public static void main(String[] args) {
         ArrayList<String> team = new ArrayList<String>();
         team.add("Bob");
-        Team c = new Team("RMR", "hi@gmail.com", team, "Test Team", 2);
+        Team c = new Team("RMR", "hi@gmail.com", "Test Team", 2);
         Review review1 = new Review("Assignment 1", c, 2.7, "review ticket", "something");
         System.out.println("Review 1: " + review1.toString());
         Review reviews[] = init();

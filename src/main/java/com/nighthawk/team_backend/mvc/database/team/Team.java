@@ -12,6 +12,8 @@ import static javax.persistence.FetchType.EAGER;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.nighthawk.team_backend.mvc.database.member.Member;
+
 // import com.nighthawk.team_backend.mvc.database.note.Note;
 
 /*
@@ -42,10 +44,10 @@ public class Team {
     @Email
     private String email;
 
-    @NotEmpty
-    @NonNull
+    // @NotEmpty
+    // @NonNull
     // @NonNull: Places this in @RequiredArgsConstructor
-    private ArrayList<String> names;
+    private ArrayList<Member> names;
 
     private int period;
 
@@ -56,10 +58,9 @@ public class Team {
     // @ManyToMany(fetch = EAGER)
     // private Collection<ClubRole> roles = new ArrayList<>();
 
-    public Team(String bigteam, String email, ArrayList<String> names, String password, int period) {
+    public Team(String bigteam, String email, String password, int period) {
         this.bigteam = bigteam;
         this.email = email;
-        this.names = names;
         this.password = password;
         this.period = period;
     }
@@ -70,9 +71,9 @@ public class Team {
         Team nhs = new Team();
         nhs.setBigteam("RMR");
         nhs.setEmail("abc@gmail.com");
-        ArrayList<String> mySet = new ArrayList<String>();
-        mySet.add("Bob");
-        mySet.add("Joe");
+        ArrayList<Member> mySet = new ArrayList<Member>();
+        Member joe = new Member("test", "test", "test");
+        mySet.add(joe);
         nhs.setNames(mySet);
         nhs.setPassword("123");
         nhs.setPeriod(1);

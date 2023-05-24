@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.nighthawk.team_backend.mvc.database.member.Member;
+
 import java.util.*;
 
 @RestController
@@ -60,7 +62,6 @@ public class TeamApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-
     @PostMapping("/post")
     public ResponseEntity<Object> postTeam(@RequestBody Team team) {
         // check for duplicate
@@ -83,6 +84,28 @@ public class TeamApiController {
             oldTeam.setNames(team.getNames());
             oldTeam.setPeriod(team.getPeriod());
             oldTeam.setPassword(team.getPassword());
+            repository.save(oldTeam); // save changes to team
+            return new ResponseEntity<>(oldTeam.getEmail() + " was updated successfully", HttpStatus.OK); // OK HTTP
+            // response: status
+            // code, headers,
+            // and body
+        }
+        // Bad ID
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/addMember/{id}")
+    public ResponseEntity<Object> addMember(@PathVariable long id, @RequestBody Member newMember) {
+        Optional<Team> optional = jparepository.findById(id);
+        if (optional.isPresent()) { // Good ID
+            Team oldTeam = optional.get(); // value from findByID
+            // update attributes of the team
+            ArrayList<Member> member = new ArrayList<Member>();
+            if (oldTeam.getNames() != null) {
+                member = oldTeam.getNames();
+            }
+            member.add(newMember);
+            oldTeam.setNames(member);
             repository.save(oldTeam); // save changes to team
             return new ResponseEntity<>(oldTeam.getEmail() + " was updated successfully", HttpStatus.OK); // OK HTTP
             // response: status
