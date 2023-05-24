@@ -58,6 +58,7 @@ public class Team {
     // @ManyToMany(fetch = EAGER)
     // private Collection<ClubRole> roles = new ArrayList<>();
 
+    // constructor
     public Team(String bigteam, String email, String password, int period) {
         this.bigteam = bigteam;
         this.email = email;
