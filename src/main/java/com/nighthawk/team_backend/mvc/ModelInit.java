@@ -23,6 +23,8 @@ public class ModelInit {
     @Autowired
     EventJpaRepository eventRepo;
     @Autowired
+    TaskJpaRepository taskRepo;
+    @Autowired
     ReviewJpaRepository reviewRepo;
     @Autowired
     TeamDetailsService teamService;
@@ -44,6 +46,13 @@ public class ModelInit {
                 List<Event> eventFound = eventRepo.findByEventIgnoreCase(event); // JPA lookup
                 if (eventFound.size() == 0)
                     eventRepo.save(new Event(null, event, 0, 0)); // JPA save
+            }
+
+            String[] taskArray = Task.init();
+            for (String task : taskArray) {
+                List<Task> taskFound = taskRepo.findByTaskIgnoreCase(task); // JPA lookup
+                if (taskFound.size() == 0)
+                    taskRepo.save(new Task(null, task, 0, 1)); // JPA save
             }
 
             // Person database is populated with test data
