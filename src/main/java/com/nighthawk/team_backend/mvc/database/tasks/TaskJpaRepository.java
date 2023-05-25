@@ -11,3 +11,4 @@ public interface TaskJpaRepository extends JpaRepository<Task, Long> {
     List<Task> findAllByOrderByTaskAsc();
     List<Task> findByTaskIgnoreCase(String task);
 }
+ 

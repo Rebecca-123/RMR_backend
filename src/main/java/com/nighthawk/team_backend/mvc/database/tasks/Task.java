@@ -29,7 +29,7 @@ public class Task {
             "Set up Frontend",
             "Import HTML template",
             "Create a POJO",
-            "AWS Deploy"
+            "AWS Deploy" 
         };
         return TaskArray;
     }
