@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @Data // Annotations to simplify writing code (ie constructors, setters)
 public class Member implements Serializable {
     String name;
+
     String githubId;
+
     String blog;
+    
 }

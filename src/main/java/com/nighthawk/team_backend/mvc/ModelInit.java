@@ -9,6 +9,8 @@ import com.nighthawk.team_backend.mvc.jokes.Jokes;
 import com.nighthawk.team_backend.mvc.jokes.JokesJpaRepository;
 import com.nighthawk.team_backend.mvc.database.reviews.Review;
 import com.nighthawk.team_backend.mvc.database.reviews.ReviewJpaRepository;
+import com.nighthawk.team_backend.mvc.database.tasks.Task;
+import com.nighthawk.team_backend.mvc.database.tasks.TaskJpaRepository;
 import com.nighthawk.team_backend.mvc.database.team.Team;
 import com.nighthawk.team_backend.mvc.database.team.TeamDetailsService;
 import com.nighthawk.team_backend.mvc.event.Event;
@@ -22,6 +24,8 @@ public class ModelInit {
     JokesJpaRepository jokesRepo;
     @Autowired
     EventJpaRepository eventRepo;
+    @Autowired
+    TaskJpaRepository taskRepo;
     @Autowired
     ReviewJpaRepository reviewRepo;
     @Autowired
@@ -44,6 +48,13 @@ public class ModelInit {
                 List<Event> eventFound = eventRepo.findByEventIgnoreCase(event); // JPA lookup
                 if (eventFound.size() == 0)
                     eventRepo.save(new Event(null, event, 0, 0)); // JPA save
+            }
+
+            String[] taskArray = Task.init();
+            for (String task : taskArray) {
+                List<Task> taskFound = taskRepo.findByTaskIgnoreCase(task); // JPA lookup
+                if (taskFound.size() == 0)
+                    taskRepo.save(new Task(null, task, 0, 1)); // JPA save
             }
 
             // Person database is populated with test data
