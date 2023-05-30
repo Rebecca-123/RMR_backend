@@ -26,9 +26,8 @@ Sample team JSON object:
 Sample user JSON object: 
 ```
 {
-    "bigteam": "yay",
-    "email": "yay@email.com",
-    "password": "secure",
-    "period": 2
+    "name": "bob",
+    "githubId": "bob123",
+    "blog": "str"
 }
 ```
