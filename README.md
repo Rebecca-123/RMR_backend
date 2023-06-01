@@ -52,7 +52,7 @@ Sample team JSON object:
 }
 ```
 
-**Tasks API**: ``/api/task`` 
+**Tasks API**: ``/api/task``  (Backend done)
 | endpoint | description | 
 | - | - |
 | GET: ``/`` | get tasks for each specific person in the team, given the id |
@@ -66,5 +66,18 @@ Sample team JSON object:
     "task": "AWS Deployment",
     "finished": "false",
     "progress": "true"
+}
+```
+
+**Authenticate Endpoint**: ``/authenticate`` 
+| endpoint | description | 
+| - | - |
+| POST: ``/authenticate`` | Once a team is added, website allows authentification |
+
+
+Sample team JSON object: 
+```
+{
+    
 }
 ```
