@@ -31,3 +31,23 @@ Sample user JSON object:
     "blog": "str"
 }
 ```
+
+
+
+**Assignments API**: ``/api/review`` (Used View Controller for this particulat POJO
+| endpoint | description | 
+| - | - |
+| GET: ``/`` | get all assignments for the team |
+| GET: ``reviews/{id}`` | get info for particular assignment |
+| POST: ``/addreview/{id}`` | adding assignments to a particular team |
+
+Sample team JSON object: 
+```
+{
+    "assignment": "Assignment 1"
+     "Team": "c"
+    "score": "2.7"
+    "ticket": "review ticket"
+    "comments": "something"
+}
+```
