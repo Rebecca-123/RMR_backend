@@ -51,3 +51,20 @@ Sample team JSON object:
     "comments": "something"
 }
 ```
+
+**Tasks API**: ``/api/task`` 
+| endpoint | description | 
+| - | - |
+| GET: ``/`` | get tasks for each specific person in the team, given the id |
+| PUT: ``finish/{id}`` | when the task is finished, can check off that the person finished the task |
+| PUT: ``/progress/{id}`` | when the task is being worked on, can check off that the person making progress on the task |
+
+Sample team JSON object: 
+```
+{
+    "id": "42",
+    "task": "AWS Deployment",
+    "finished": "false",
+    "progress": "true"
+}
+```
